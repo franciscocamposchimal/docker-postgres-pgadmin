@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: postgres_dev
+    restart: always
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_pass
+      POSTGRES_DB: dev_db
+    ports: 
+      - 5432:5432 
+    volumes:
+      - post_vol:/var/lib/postgresql/data
+    networks: 
+      - net
+
+  adminer:
+    depends_on:
+      - db
+    container_name: adminer_dev
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks: 
+      - net
+    
+  pgadmin:
+    depends_on:
+      - db
+    container_name: pgadmin_dev
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "camposfranciscoing@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "dev_pass"
+    ports:
+      - 8181:80
+    networks:
+      - net
+
+networks: 
+  net:
+
+volumes: 
+  post_vol:
