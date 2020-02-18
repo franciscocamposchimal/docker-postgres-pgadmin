@@ -1,0 +1,11 @@
+projects:
+  cervus-backend:
+    schemaPath: src/prisma/schema.graphql
+    extensions:
+      endpoints:
+        dev: 'http://localhost:4466'
+      codegen:
+        - generator: prisma-binding
+          language: typescript
+          output:
+            binding: src/prisma/primsa.binding.ts

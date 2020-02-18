@@ -1,0 +1,16 @@
+type User {
+	id: Int!
+	name: String!
+	email: String
+	age: Int
+	password: String!
+	createdAt: String
+  	updatedAt: String
+}
+
+input CreateUserInput {
+	name: String!
+	email: String!
+	age: Int
+	password: String!
+}
