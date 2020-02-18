@@ -8,4 +8,4 @@ projects:
         - generator: prisma-binding
           language: typescript
           output:
-            binding: src/prisma/primsa.binding.ts
+            binding: src/prisma/prisma.binding.ts

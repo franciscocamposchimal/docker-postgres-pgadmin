@@ -1,21 +1,18 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Resolver()
 export class MessagesResolver {
-    messagesList = [
-        { id: 0, description: "Message hardcode" },
-    ]
 
-    @Query('messages')
-    getMessages(){
-        return this.messagesList;
+    constructor(private readonly prisma: PrismaService){}
+
+    @Query()
+    messages(@Args() args){
+        return this.prisma.query.messages(args);
     }
 
     @Mutation()
-    createMessage(@Args('description') description: string){
-        let id = this.messagesList.length;
-        let newMessage = { id, description };
-        this.messagesList.push(newMessage);
-        return newMessage;
+    createMessage(@Args() args){
+        return this.prisma.mutation.createMessage(args);
     }
 }
