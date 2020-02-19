@@ -2,17 +2,17 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Resolver()
-export class MessagesResolver {
+export class UserResolver {
 
     constructor(private readonly prisma: PrismaService){}
 
     @Query()
-    messages(@Args() args){
-        return this.prisma.query.messages(args);
+    users(@Args() args){
+        return this.prisma.query.users(args);
     }
 
     @Mutation()
-    createMessage(@Args() args){
-        return this.prisma.mutation.createMessage(args);
+    createUser(@Args() args){
+        return this.prisma.mutation.createUser(args);
     }
 }

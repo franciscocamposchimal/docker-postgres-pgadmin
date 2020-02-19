@@ -1,16 +1,14 @@
-type Message {
-    id: ID!
-    description: String!
-}
-
-input MessageInput {
-    description: String!
-}
 
 type Query {
-    messages: [Message]!
+    user(id: ID!): User!
+    users: [User!]!
+    post(id: ID!): Post!
+    posts: [Post!]!
 }
 
 type Mutation {
-    createMessage(data: MessageInput): Message!
+    createUser(data: AuthPayload): User!
+    signup(data: SignUpInput): AuthPayload!
+    login(data: LoginInput): AuthPayload!
+    createPost(data: PostInput): Post!
 }
