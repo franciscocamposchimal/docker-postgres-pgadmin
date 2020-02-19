@@ -7,8 +7,7 @@ type Query {
 }
 
 type Mutation {
-    createUser(data: AuthPayload): User!
-    signup(data: SignUpInput): AuthPayload!
+    signup(data: signupInput): AuthPayload!
     login(data: LoginInput): AuthPayload!
     createPost(data: PostInput): Post!
 }

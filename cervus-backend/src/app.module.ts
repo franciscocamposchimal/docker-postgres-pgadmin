@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { MessagesModule } from './messages/messages.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -12,10 +12,16 @@ import { UserModule } from './user/user.module';
       resolverValidationOptions: {
         requireResolversForResolveType: false,
       },
+      context: ({ req, res }) => ({ req, res })
     }),
-    MessagesModule,
     PrismaModule,
-    UserModule
+    AuthModule
+  ],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
   ],
 })
 export class AppModule {}

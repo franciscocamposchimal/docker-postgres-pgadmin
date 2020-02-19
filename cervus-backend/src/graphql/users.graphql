@@ -11,7 +11,7 @@ type AuthPayload {
   email: String!
 }
 
-input SignUpInput {
+input signupInput {
   email: String!
   password: String!
 }
