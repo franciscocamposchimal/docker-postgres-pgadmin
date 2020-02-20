@@ -1,10 +1,12 @@
 import * as bcryptjs from 'bcryptjs';
-import { Response } from 'express';
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
-import { ResGql } from '../shared/decorators/decorators';
+import { ResGql, GqlUser } from '../shared/decorators/decorators';
 import { SignupInput } from './signupInput.dto';
+import { GqlAuthGuard } from './graphql-auth.guard';
+import { User } from '../prisma/prisma.binding';
 
 @Resolver('Auth')
 export class AuthResolver {
@@ -12,6 +14,13 @@ export class AuthResolver {
       private readonly jwt: JwtService,
       private readonly prisma: PrismaService,
     ) {}
+
+    @Query()
+    @UseGuards(GqlAuthGuard)
+    async users(@GqlUser() user: User) {
+        console.log("USER: ", user);
+        return await this.prisma.query.users(null);
+    }
   
     @Mutation()
     async login(
@@ -30,7 +39,6 @@ export class AuthResolver {
   
       const jwt = this.jwt.sign({ id: user.id });
       res.cookie('token', jwt, { httpOnly: true });
-      console.log(res);
       return user;
     }
   
@@ -56,7 +64,7 @@ export class AuthResolver {
   
       const jwt = this.jwt.sign({ id: user.id });
       res.cookie('token', jwt, { httpOnly: true });
-      console.log(res.cookie);
+      //console.log(res.cookie);
       return user;
     }
   }
