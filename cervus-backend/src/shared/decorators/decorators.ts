@@ -5,5 +5,5 @@ export const ResGql = createParamDecorator(
 );
 
 export const GqlUser = createParamDecorator(
-  (data, [root, args, ctx, info]) => ctx.req && ctx.req.user,
+  (data, [root, args, ctx, info]) => ctx.req.user,
 );

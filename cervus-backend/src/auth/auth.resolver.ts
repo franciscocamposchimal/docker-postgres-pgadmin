@@ -6,7 +6,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ResGql, GqlUser } from '../shared/decorators/decorators';
 import { SignupInput } from './signupInput.dto';
 import { GqlAuthGuard } from './graphql-auth.guard';
-import { User } from '../prisma/prisma.binding';
+//import { User } from '../prisma/prisma.binding';
 
 @Resolver('Auth')
 export class AuthResolver {
@@ -17,7 +17,7 @@ export class AuthResolver {
 
     @Query()
     @UseGuards(GqlAuthGuard)
-    async users(@GqlUser() user: User) {
+    async users(@GqlUser() user: any) {
         console.log("USER: ", user);
         return await this.prisma.query.users(null);
     }

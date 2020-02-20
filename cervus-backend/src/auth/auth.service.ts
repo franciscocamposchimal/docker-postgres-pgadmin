@@ -6,6 +6,7 @@ export class AuthService {
   constructor(private readonly prisma: PrismaService) {}
 
   async validate({ id }) {
+    console.log('AuthService: ',id);
     const user = await this.prisma.query.user({ where: { id } });
     if (!user) {
       throw Error('Authenticate validation error');
