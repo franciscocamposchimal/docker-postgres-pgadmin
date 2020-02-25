@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-jwt';
@@ -13,12 +15,15 @@ const cookieExtractor = (req): string | null => {
   return token;
 };
 
+const cert = fs.readFileSync(path.join(__dirname, `../keys/public.pem`), 'utf8');
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
       jwtFromRequest: cookieExtractor,
-      secretOrKey: 'hashmegasecretpass',
+      secretOrKey: cert,
+      algorithm: ['RS256']
     });
   }
 
