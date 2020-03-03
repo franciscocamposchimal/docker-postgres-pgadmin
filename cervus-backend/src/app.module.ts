@@ -8,6 +8,13 @@ import { APP_PIPE } from '@nestjs/core';
   imports: [
     GraphQLModule.forRoot({
       typePaths: ['./**/graphql/*.graphql'],
+      cors: {
+        origin: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+        credentials: true
+      },
       installSubscriptionHandlers: true,
       resolverValidationOptions: {
         requireResolversForResolveType: false,

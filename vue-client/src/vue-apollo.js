@@ -42,7 +42,9 @@ const defaultOptions = {
   // note: don't override httpLink here, specify httpLink options in the
   // httpLinkOptions property of defaultOptions.
   // link: myLink
-
+  httpLinkOptions: {
+    credentials: 'include'
+  },
   // Override default cache
   // cache: myCache
 
